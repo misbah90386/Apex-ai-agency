@@ -1,0 +1,6 @@
+{
+  "name": "APEX AI AGENCY",
+  "description": "Modern portfolio website for APEX AI AGENCY, providing professional AI agents, voice systems, chatbots, websites, and business automation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
