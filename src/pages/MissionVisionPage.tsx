@@ -260,9 +260,9 @@ export default function MissionVisionPage() {
           <button
             id="btn-mission-discuss"
             onClick={() => navigate('/contact')}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg text-base font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-[0_0_25px_rgba(0,102,255,0.4)] cursor-pointer"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-base font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-[0_0_25px_rgba(0,102,255,0.4)] cursor-pointer"
           >
-            <span>Start a Project</span>
+            <span>Discuss Your Project</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

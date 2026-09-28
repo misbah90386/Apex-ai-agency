@@ -9,8 +9,33 @@ export interface ServiceItem {
   shortDescription: string;
   fullDescription: string;
   iconName: string;
+  whatItHelps: string;
+  practicalExample: string;
+  scopeInclusions: string[];
+  nextStep: string;
   capabilities: string[];
   features: string[];
+}
+
+export interface DemoProjectItem {
+  id: string;
+  title: string;
+  label: string;
+  description: string;
+  demoUrl: string;
+  previewType: 'real-estate' | 'bakery' | 'restaurant';
+}
+
+export interface ProcessStep {
+  step: string;
+  title: string;
+  description: string;
+}
+
+export interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
 }
 
 export type ProjectCategory = 'All' | 'Websites' | 'AI' | 'Automation' | 'Other';

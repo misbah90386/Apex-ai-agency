@@ -90,11 +90,11 @@ export default function Navbar() {
         {/* Right CTA Button */}
         <div className="hidden md:flex items-center">
           <button
-            id="nav-start-project-btn"
+            id="nav-discuss-project-btn"
             onClick={() => navigate('/contact')}
             className="group inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-[0_0_20px_rgba(0,102,255,0.45)] hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] active:scale-[0.98] cursor-pointer"
           >
-            <span>Start a Project</span>
+            <span>Discuss Your Project</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
@@ -141,11 +141,11 @@ export default function Navbar() {
           </div>
 
           <button
-            id="mobile-nav-start-project-btn"
+            id="mobile-nav-discuss-project-btn"
             onClick={() => navigate('/contact')}
             className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-base font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all shadow-[0_0_25px_rgba(0,102,255,0.45)] cursor-pointer"
           >
-            <span>Start a Project</span>
+            <span>Discuss Your Project</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

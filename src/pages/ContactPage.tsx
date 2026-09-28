@@ -2,12 +2,12 @@ import { WHATSAPP_CONTACTS } from '../config/site';
 
 export default function ContactPage() {
   return (
-    <div className="min-h-[80vh] flex items-center justify-center pt-28 pb-20 relative overflow-hidden">
+    <div className="min-h-[85vh] flex flex-col justify-center pt-28 pb-20 relative overflow-hidden bg-[#02070D]">
       {/* Ambient background grid and electric blue aura */}
       <div className="absolute inset-0 bg-tech-grid opacity-25 pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/10 blur-[120px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[380px] bg-blue-600/10 blur-[130px] pointer-events-none rounded-full" />
 
-      <div className="relative max-w-xl w-full mx-auto px-4 sm:px-6 text-center">
+      <div className="relative max-w-2xl w-full mx-auto px-4 sm:px-6 text-center my-auto">
         {/* Top Tag */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-blue-500/10 border border-blue-500/20 text-xs font-mono font-medium text-sky-400 uppercase tracking-widest mb-6">
           Direct Communication
@@ -15,18 +15,18 @@ export default function ContactPage() {
 
         {/* Main Heading */}
         <h1 id="contact-heading" className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-4">
-          Let's Talk.
+          Discuss Your Project
         </h1>
 
         {/* Supporting Text */}
-        <p id="contact-supporting-text" className="text-base sm:text-lg text-slate-300 leading-relaxed mb-10 max-w-md mx-auto">
-          Have a project in mind? Contact APEX directly on WhatsApp.
+        <p id="contact-supporting-text" className="text-base sm:text-lg text-slate-300 leading-relaxed mb-10 max-w-lg mx-auto">
+          Have a project in mind or questions about our services? Connect directly with the APEX team on WhatsApp.
         </p>
 
-        {/* WhatsApp Card */}
+        {/* WhatsApp Card Preserving Both Numbers */}
         <div
           id="contact-whatsapp-card"
-          className="rounded-2xl bg-[#090E1A]/90 border border-blue-500/30 p-6 sm:p-10 shadow-[0_0_50px_rgba(0,102,255,0.15)] relative overflow-hidden backdrop-blur-xl space-y-6"
+          className="rounded-2xl bg-[#070D1A]/95 border border-blue-500/30 p-6 sm:p-10 shadow-[0_0_50px_rgba(0,102,255,0.15)] relative overflow-hidden backdrop-blur-xl space-y-6"
         >
           {/* Subtle top light beam */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent" />
@@ -44,21 +44,26 @@ export default function ContactPage() {
             </svg>
           </div>
 
-          <h2 className="text-xs font-mono uppercase tracking-widest text-slate-400">
-            WhatsApp Direct Lines
-          </h2>
+          <div className="space-y-1">
+            <h2 className="text-sm font-mono uppercase tracking-widest text-white font-bold">
+              WhatsApp Direct Lines
+            </h2>
+            <p className="text-xs text-slate-400">
+              Choose either line below to open WhatsApp with a prefilled message.
+            </p>
+          </div>
 
-          {/* Numbers list */}
+          {/* Numbers list: both preserved numbers with prefilled message */}
           <div className="space-y-4 pt-2">
             {WHATSAPP_CONTACTS.map((contact, idx) => (
               <div
                 key={contact.rawNumber}
                 id={`whatsapp-channel-${idx + 1}`}
-                className="p-5 rounded-xl bg-black/40 border border-white/[0.08] hover:border-emerald-500/30 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left"
+                className="p-5 rounded-xl bg-black/40 border border-white/[0.08] hover:border-emerald-500/35 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left"
               >
                 <div>
-                  <span className="text-[11px] font-mono text-emerald-400 uppercase tracking-wider block mb-1">
-                    WhatsApp Line 0{idx + 1}
+                  <span className="text-[11px] font-mono text-emerald-400 uppercase tracking-wider block mb-1 font-semibold">
+                    {contact.lineLabel}
                   </span>
                   <div className="text-lg sm:text-xl font-mono font-bold text-white tracking-wider select-all">
                     {contact.displayNumber}
@@ -78,9 +83,12 @@ export default function ContactPage() {
               </div>
             ))}
           </div>
+
+          <div className="pt-2 text-[11px] font-mono text-slate-500">
+            PREFILLED MESSAGE: "Hello APEX AI AGENCY, I would like to discuss a project."
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
