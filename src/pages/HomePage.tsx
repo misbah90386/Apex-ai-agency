@@ -53,41 +53,41 @@ export default function HomePage() {
       <div className="absolute top-12 right-10 w-[400px] h-[400px] bg-sky-500/[0.05] blur-[120px] pointer-events-none rounded-full" />
 
       {/* 1. HERO SECTION */}
-      <section id="hero-section" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 md:pt-14 md:pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Hero Content */}
-          <div className="lg:col-span-5 flex flex-col items-start text-left">
+      <section id="hero-section" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 md:pt-12 md:pb-20">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-10 xl:gap-14">
+          {/* Left Hero Content (~48% desktop content width) */}
+          <div className="w-full lg:w-[48%] flex flex-col items-start text-left">
             {/* Small Badge */}
             <div
               id="hero-label"
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-xs font-mono font-medium text-sky-400 tracking-wider uppercase mb-6"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-xs font-mono font-medium text-sky-400 tracking-wider uppercase mb-5"
             >
               <span>APEX AI AGENCY</span>
             </div>
 
-            {/* Exact Headline as requested */}
+            {/* Exact Headline with responsive typography and balanced line breaks */}
             <h1
               id="hero-headline"
-              className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6"
+              className="text-3xl sm:text-4xl lg:text-[2.5rem] xl:text-[3.1rem] font-extrabold tracking-tight leading-[1.12] mb-5"
             >
               <span className="text-white block">ADVANCED TECHNOLOGY.</span>
-              <span className="text-sky-400 block mt-1 sm:mt-2">BUILT FOR BUSINESS.</span>
+              <span className="text-sky-400 block mt-1 sm:mt-1.5">BUILT FOR BUSINESS.</span>
             </h1>
 
-            {/* Supporting Text as requested */}
+            {/* Supporting Text */}
             <p
               id="hero-supporting-text"
-              className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-xl mb-9"
+              className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-lg mb-8"
             >
               We build professional websites, AI assistants, and automated workflows that help businesses present their services, handle enquiries, and reduce repetitive work.
             </p>
 
             {/* Hero buttons: “Explore Our Work” (scrolls to portfolio) & “Discuss Your Project” (opens Contact page) */}
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3.5 sm:gap-4">
               <button
                 id="btn-explore-work"
                 onClick={scrollToPortfolio}
-                className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-[0_0_25px_rgba(0,102,255,0.45)] hover:shadow-[0_0_35px_rgba(56,189,248,0.6)] active:scale-[0.98] cursor-pointer"
+                className="group inline-flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-[0_0_25px_rgba(0,102,255,0.45)] hover:shadow-[0_0_35px_rgba(56,189,248,0.6)] active:scale-[0.98] cursor-pointer"
               >
                 <span>Explore Our Work</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -96,7 +96,7 @@ export default function HomePage() {
               <button
                 id="btn-discuss-project-hero"
                 onClick={() => navigate('/contact')}
-                className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-sky-400/40 backdrop-blur-sm transition-all duration-200 active:scale-[0.98] cursor-pointer"
+                className="group inline-flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full text-sm font-semibold text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-sky-400/40 backdrop-blur-sm transition-all duration-200 active:scale-[0.98] cursor-pointer"
               >
                 <span>Discuss Your Project</span>
                 <ArrowRight className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-1 group-hover:text-sky-300" />
@@ -104,8 +104,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right Hero Visual: Cohesive composition of Website Interface, AI Panel, and Workflow */}
-          <div className="lg:col-span-7 flex items-center justify-center">
+          {/* Right Hero Visual (~52% desktop content width) */}
+          <div className="w-full lg:w-[52%] flex items-center justify-center">
             <HeroVisualComposition />
           </div>
         </div>
