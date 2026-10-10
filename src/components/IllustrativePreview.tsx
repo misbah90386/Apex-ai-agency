@@ -15,7 +15,7 @@ export default function IllustrativePreview({ type }: IllustrativePreviewProps) 
             <div className="w-2 h-2 rounded-full bg-slate-600" />
             <div className="w-2 h-2 rounded-full bg-slate-600" />
             <div className="w-2 h-2 rounded-full bg-slate-600" />
-            <span className="text-[10px] font-mono text-slate-400 ml-1.5">property-concept.web</span>
+            <span className="text-[10px] font-mono text-slate-400 ml-1.5">property-concept.demo</span>
           </div>
           {/* Bilingual Switcher indicator */}
           <div className="flex items-center gap-1.5 font-mono text-[9px] bg-white/[0.05] px-2 py-0.5 rounded border border-white/10 text-slate-300">
@@ -28,7 +28,6 @@ export default function IllustrativePreview({ type }: IllustrativePreviewProps) 
         {/* Property Concept Card Preview */}
         <div className="my-auto py-1 space-y-2">
           <div className="relative rounded-lg bg-gradient-to-br from-[#0D182E] to-[#08101F] border border-blue-400/20 p-2.5">
-            {/* Property Category & Generic Name */}
             <div className="flex items-center justify-between mb-1">
               <span className="text-[9px] font-mono text-sky-400 uppercase tracking-wider">Concept Listing</span>
               <span className="text-[10px] font-bold font-mono text-white">$1,250,000</span>
@@ -51,7 +50,6 @@ export default function IllustrativePreview({ type }: IllustrativePreviewProps) 
               <span>380 sqm</span>
             </div>
 
-            {/* Generic filter row preview */}
             <div className="mt-2 pt-2 border-t border-white/[0.06] flex items-center justify-between text-[9px] text-slate-400">
               <div className="flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
@@ -62,10 +60,10 @@ export default function IllustrativePreview({ type }: IllustrativePreviewProps) 
           </div>
         </div>
 
-        {/* Bottom Banner with mandatory Illustrative Preview Label */}
+        {/* Bottom Banner with mandatory Illustrative demo Label */}
         <div className="flex items-center justify-between pt-1.5 border-t border-white/[0.06] text-[10px]">
           <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-blue-500/15 border border-blue-400/30 text-sky-300 font-mono text-[9px] uppercase tracking-wider font-semibold">
-            Illustrative Preview
+            Illustrative demo
           </span>
           <span className="text-[9px] font-mono text-slate-400">Concept Demo</span>
         </div>
@@ -122,10 +120,10 @@ export default function IllustrativePreview({ type }: IllustrativePreviewProps) 
           </div>
         </div>
 
-        {/* Bottom Banner with mandatory Illustrative Preview Label */}
+        {/* Bottom Banner with mandatory Illustrative demo Label */}
         <div className="flex items-center justify-between pt-1.5 border-t border-white/[0.06] text-[10px]">
           <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-blue-500/15 border border-blue-400/30 text-sky-300 font-mono text-[9px] uppercase tracking-wider font-semibold">
-            Illustrative Preview
+            Illustrative demo
           </span>
           <span className="text-[9px] font-mono text-slate-400">Concept Demo</span>
         </div>
@@ -173,10 +171,10 @@ export default function IllustrativePreview({ type }: IllustrativePreviewProps) 
         </div>
       </div>
 
-      {/* Bottom Banner with mandatory Illustrative Preview Label */}
+      {/* Bottom Banner with mandatory Illustrative demo Label */}
       <div className="flex items-center justify-between pt-1.5 border-t border-white/[0.06] text-[10px]">
         <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-blue-500/15 border border-blue-400/30 text-sky-300 font-mono text-[9px] uppercase tracking-wider font-semibold">
-          Illustrative Preview
+          Illustrative demo
         </span>
         <span className="text-[9px] font-mono text-slate-400">Concept Demo</span>
       </div>

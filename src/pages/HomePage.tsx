@@ -3,31 +3,47 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { 
   ArrowRight, 
   ChevronDown, 
-  Brain, 
-  Monitor, 
-  Settings, 
-  Box,
-  MessageCircle
+  MessageCircle,
+  Layout,
+  Bot,
+  Cpu
 } from 'lucide-react';
 import HeroVisualComposition from '../components/HeroVisualComposition';
 import DemoPortfolioCard from '../components/DemoPortfolioCard';
 import ServiceCard from '../components/ServiceCard';
+import SolutionAdvisor from '../components/SolutionAdvisor';
 import { 
-  SERVICES_DATA, 
-  DEMO_PROJECTS, 
-  PROCESS_STEPS, 
-  FAQ_DATA 
-} from '../config/site';
+  getServicesData, 
+  getDemoProjects, 
+  getProcessSteps, 
+  getFaqData,
+  getGeneralWhatsAppUrl,
+  UI_STRINGS
+} from '../config/translations';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function HomePage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [openFaq, setOpenFaq] = useState<string | null>(FAQ_DATA[0].id);
+  const { language, isRTL } = useLanguage();
 
-  // Smooth scroll to portfolio if hash is present
+  const services = getServicesData(language);
+  const demoProjects = getDemoProjects(language);
+  const processSteps = getProcessSteps(language);
+  const faqData = getFaqData(language);
+  const strings = UI_STRINGS[language];
+
+  const [openFaq, setOpenFaq] = useState<string | null>(faqData[0]?.id || 'faq-project-scope');
+
+  // Smooth scroll to portfolio or solution section if hash is present
   useEffect(() => {
     if (location.hash === '#demo-portfolio' || location.hash === '#portfolio' || location.hash === '#work') {
       const el = document.getElementById('demo-portfolio');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (location.hash === '#find-right-solution' || location.hash === '#solution') {
+      const el = document.getElementById('find-right-solution');
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
       }
@@ -45,6 +61,8 @@ export default function HomePage() {
     setOpenFaq(prev => prev === id ? null : id);
   };
 
+  const whatsappGeneralUrl = getGeneralWhatsAppUrl(language);
+
   return (
     <div className="relative pt-24 pb-16 overflow-hidden bg-[#02070D]">
       {/* Ambient background grid & glow aura */}
@@ -53,54 +71,128 @@ export default function HomePage() {
       <div className="absolute top-12 right-10 w-[400px] h-[400px] bg-sky-500/[0.05] blur-[120px] pointer-events-none rounded-full" />
 
       {/* 1. HERO SECTION */}
-      <section id="hero-section" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 md:pt-12 md:pb-20">
+      <section id="hero-section" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 md:pt-12 md:pb-20 text-left">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-10 xl:gap-14">
           {/* Left Hero Content (~48% desktop content width) */}
           <div className="w-full lg:w-[48%] flex flex-col items-start text-left">
-            {/* Small Badge */}
+            {/* Small Badge / Tagline */}
             <div
               id="hero-label"
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-xs font-mono font-medium text-sky-400 tracking-wider uppercase mb-5"
             >
-              <span>APEX AI AGENCY</span>
+              <span>{language === 'ar' ? "APEX AI AGENCY • تقنيات متقدمة. مصممة لأعمالك." : "APEX AI AGENCY • Advanced Technology. Built for Business."}</span>
             </div>
 
-            {/* Exact Headline with responsive typography and balanced line breaks */}
-            <h1
-              id="hero-headline"
-              className="text-3xl sm:text-4xl lg:text-[2.5rem] xl:text-[3.1rem] font-extrabold tracking-tight leading-[1.12] mb-5"
-            >
-              <span className="text-white block">ADVANCED TECHNOLOGY.</span>
-              <span className="text-sky-400 block mt-1 sm:mt-1.5">BUILT FOR BUSINESS.</span>
-            </h1>
+            {/* Customer-Focused Headline in English and Arabic */}
+            {language === 'ar' ? (
+              <h1
+                id="hero-headline"
+                className="text-3xl sm:text-4xl lg:text-[2.6rem] xl:text-[3.2rem] font-extrabold tracking-tight leading-[1.25] mb-5 text-balance font-heading"
+              >
+                <span className="text-white block">مواقع إلكترونية وأتمتة بالذكاء الاصطناعي</span>
+                <span className="text-sky-400 block mt-1 sm:mt-1.5">لأعمالك</span>
+              </h1>
+            ) : (
+              <h1
+                id="hero-headline"
+                className="text-3xl sm:text-4xl lg:text-[2.5rem] xl:text-[3.1rem] font-extrabold tracking-tight leading-[1.15] mb-5 text-balance"
+              >
+                <span className="text-white block">Websites & AI Automation</span>
+                <span className="text-sky-400 block mt-1 sm:mt-1.5">For Your Business.</span>
+              </h1>
+            )}
 
-            {/* Supporting Text */}
+            {/* Exact Supporting Text in English and Arabic */}
             <p
               id="hero-supporting-text"
-              className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-lg mb-8"
+              className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-lg mb-6"
             >
-              We build professional websites, AI assistants, and automated workflows that help businesses present their services, handle enquiries, and reduce repetitive work.
+              {language === 'ar'
+                ? "نطوّر مواقع إلكترونية احترافية، ومساعدين بالذكاء الاصطناعي للرد على استفسارات العملاء، وحلول أتمتة لإنجاز المهام المتكررة."
+                : "We build professional websites, AI assistants that answer customer enquiries, and automation that handles repetitive tasks."}
             </p>
 
-            {/* Hero buttons: “Explore Our Work” (scrolls to portfolio) & “Discuss Your Project” (opens Contact page) */}
-            <div className="flex flex-wrap items-center gap-3.5 sm:gap-4">
-              <button
-                id="btn-explore-work"
-                onClick={scrollToPortfolio}
-                className="group inline-flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-[0_0_25px_rgba(0,102,255,0.45)] hover:shadow-[0_0_35px_rgba(56,189,248,0.6)] active:scale-[0.98] cursor-pointer"
-              >
-                <span>Explore Our Work</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </button>
+            {/* Three Easy-to-Understand Benefits */}
+            <div 
+              id="hero-key-benefits"
+              className="w-full max-w-lg mb-8 space-y-2.5 sm:space-y-2 pt-1 border-t border-white/[0.08]"
+            >
+              <div className="flex items-start gap-2.5 text-sm">
+                <div className="p-1 rounded bg-blue-500/10 text-sky-400 shrink-0 mt-0.5">
+                  <Layout className="w-4 h-4" />
+                </div>
+                <div className="text-slate-200">
+                  <strong className="text-white font-semibold">
+                    {language === 'ar' ? "المواقع الإلكترونية" : "Websites"}
+                  </strong>
+                  <span className="text-slate-400 mx-1.5">—</span>
+                  <span className="text-slate-300">
+                    {language === 'ar' ? "اعرض نشاطك التجاري وخدماتك باحترافية." : "Showcase your business and services."}
+                  </span>
+                </div>
+              </div>
 
-              <button
-                id="btn-discuss-project-hero"
-                onClick={() => navigate('/contact')}
-                className="group inline-flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full text-sm font-semibold text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-sky-400/40 backdrop-blur-sm transition-all duration-200 active:scale-[0.98] cursor-pointer"
-              >
-                <span>Discuss Your Project</span>
-                <ArrowRight className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-1 group-hover:text-sky-300" />
-              </button>
+              <div className="flex items-start gap-2.5 text-sm">
+                <div className="p-1 rounded bg-blue-500/10 text-sky-400 shrink-0 mt-0.5">
+                  <Bot className="w-4 h-4" />
+                </div>
+                <div className="text-slate-200">
+                  <strong className="text-white font-semibold">
+                    {language === 'ar' ? "المساعدون بالذكاء الاصطناعي" : "AI Assistants"}
+                  </strong>
+                  <span className="text-slate-400 mx-1.5">—</span>
+                  <span className="text-slate-300">
+                    {language === 'ar' ? "ساعد في الرد على استفسارات وأسئلة العملاء." : "Help answer customer questions."}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2.5 text-sm">
+                <div className="p-1 rounded bg-blue-500/10 text-sky-400 shrink-0 mt-0.5">
+                  <Cpu className="w-4 h-4" />
+                </div>
+                <div className="text-slate-200">
+                  <strong className="text-white font-semibold">
+                    {language === 'ar' ? "الأتمتة" : "Automation"}
+                  </strong>
+                  <span className="text-slate-400 mx-1.5">—</span>
+                  <span className="text-slate-300">
+                    {language === 'ar' ? "قلل العمل اليدوي المتكرر واختصر الوقت." : "Reduce repetitive manual work."}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Hero buttons: Primary “Discuss Your Project” (WhatsApp) & Secondary “View Demo Websites” */}
+            <div className="flex flex-col items-start gap-2">
+              <div className="flex flex-wrap items-center gap-3.5 sm:gap-4">
+                <a
+                  id="btn-discuss-project-hero"
+                  href={whatsappGeneralUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-[0_0_25px_rgba(0,102,255,0.45)] hover:shadow-[0_0_35px_rgba(56,189,248,0.6)] active:scale-[0.98] cursor-pointer"
+                >
+                  <MessageCircle className="w-4 h-4 text-sky-200" />
+                  <span>{strings.discussProject}</span>
+                  <ArrowRight className={`w-4 h-4 transition-transform ${isRTL ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`} />
+                </a>
+
+                <button
+                  id="btn-view-demo-websites"
+                  onClick={scrollToPortfolio}
+                  className="group inline-flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full text-sm font-semibold text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-sky-400/40 backdrop-blur-sm transition-all duration-200 active:scale-[0.98] cursor-pointer"
+                >
+                  <span>{strings.viewDemoWebsites}</span>
+                  <ArrowRight className={`w-4 h-4 text-slate-400 transition-transform ${isRTL ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'} group-hover:text-sky-300`} />
+                </button>
+              </div>
+
+              {/* Small "Chat with us on WhatsApp" helper label beneath primary button */}
+              <div className="flex items-center gap-1.5 text-xs text-slate-400 pt-1 ps-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>{strings.chatWithUsOnWhatsApp}</span>
+              </div>
             </div>
           </div>
 
@@ -111,40 +203,43 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. DEMO PORTFOLIO SECTION */}
-      <section id="demo-portfolio" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-white/[0.06] scroll-mt-24">
+      {/* 2. FIND THE RIGHT SOLUTION (INTERACTIVE SOLUTION ADVISOR) */}
+      <SolutionAdvisor />
+
+      {/* 3. DEMO PORTFOLIO SECTION */}
+      <section id="demo-portfolio" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-white/[0.06] scroll-mt-24 text-left">
         <div className="max-w-3xl mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-xs font-mono font-medium text-sky-400 uppercase tracking-widest mb-3">
-            Demo Showcase
+            {strings.interactiveDemonstrations}
           </div>
           <h2 id="portfolio-heading" className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Explore What We Can Build
+            {strings.exploreWhatWeBuild}
           </h2>
           <p id="portfolio-intro" className="text-base sm:text-lg text-slate-300 leading-relaxed">
-            Explore concept websites showing different ways businesses can present their services online.
+            {strings.exploreWhatWeBuildDesc}
           </p>
         </div>
 
         {/* 3 Columns on desktop, 2 on medium, 1 on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {DEMO_PROJECTS.map((project) => (
+          {demoProjects.map((project) => (
             <DemoPortfolioCard key={project.id} project={project} />
           ))}
         </div>
       </section>
 
-      {/* 3. CORE SERVICES SECTION */}
-      <section id="services-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-white/[0.06]">
+      {/* 4. CORE SERVICES SECTION */}
+      <section id="services-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-white/[0.06] text-left">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4">
           <div className="max-w-2xl">
             <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2 font-bold">
-              CAPABILITIES & WORKFLOWS
+              {strings.capabilitiesHeader}
             </span>
             <h2 id="home-services-heading" className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
-              Our <span className="text-sky-400">Services</span>
+              {strings.ourServices}
             </h2>
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-              We design and build practical digital solutions focused on clear communication, everyday usefulness, and reliable operations.
+              {strings.servicesSub}
             </p>
           </div>
           <Link
@@ -152,36 +247,36 @@ export default function HomePage() {
             id="link-view-all-services"
             className="inline-flex items-center gap-1.5 text-sm font-semibold text-sky-400 hover:text-sky-300 transition-colors group shrink-0"
           >
-            <span>View All Service Inclusions</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <span>{strings.viewAllServices}</span>
+            <ArrowRight className={`w-4 h-4 transition-transform ${isRTL ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`} />
           </Link>
         </div>
 
         {/* 3 Columns on desktop, 2 on medium, 1 on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {SERVICES_DATA.map((service) => (
+          {services.map((service) => (
             <ServiceCard key={service.id} service={service} idPrefix="home-service" />
           ))}
         </div>
       </section>
 
-      {/* 4. EXPANDED PROJECT PROCESS SECTION */}
-      <section id="process-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-white/[0.06]">
+      {/* 5. PROJECT PROCESS SECTION (Discuss → Design → Build → Launch) */}
+      <section id="process-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-white/[0.06] text-left">
         <div className="max-w-3xl mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-xs font-mono font-medium text-sky-400 uppercase tracking-widest mb-3">
-            How We Work
+            {strings.projectLifecycle}
           </div>
           <h2 id="process-heading" className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
-            A Clear Path From Idea to Launch
+            {strings.projectLifecycle}
           </h2>
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-            Every project follows a straightforward four-stage process designed to maintain alignment, clarity, and open communication.
+            {strings.projectLifecycleSub}
           </p>
         </div>
 
-        {/* 4 Process Cards */}
+        {/* 4 Process Cards: Discuss → Design → Build → Launch */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {PROCESS_STEPS.map((step) => (
+          {processSteps.map((step) => (
             <div
               key={step.step}
               id={`process-card-${step.step}`}
@@ -200,29 +295,29 @@ export default function HomePage() {
               </div>
 
               <div className="mt-8 pt-4 border-t border-white/[0.05] text-[11px] font-mono text-slate-500 uppercase tracking-wider">
-                Stage {step.step}
+                {language === 'ar' ? `المرحلة ${step.step}` : `Stage ${step.step}`}
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 5. HOMEPAGE FAQS SECTION */}
-      <section id="faq-section" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-white/[0.06]">
+      {/* 6. HOMEPAGE FAQS SECTION */}
+      <section id="faq-section" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-white/[0.06] text-left">
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-xs font-mono font-medium text-sky-400 uppercase tracking-widest mb-3">
-            Common Inquiries
+            {strings.commonInquiries}
           </div>
           <h2 id="faq-heading" className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Frequently Asked Questions
+            {strings.commonInquiries}
           </h2>
           <p className="text-base text-slate-300 leading-relaxed">
-            Straightforward answers to the most common questions business owners have about working with APEX.
+            {strings.commonInquiriesSub}
           </p>
         </div>
 
         <div className="space-y-4">
-          {FAQ_DATA.map((faq) => {
+          {faqData.map((faq) => {
             const isOpen = openFaq === faq.id;
             return (
               <div
@@ -265,7 +360,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. CLOSING SECTION (Exact requested text) */}
+      {/* 7. STRONG FINAL WHATSAPP CALL TO ACTION */}
       <section id="closing-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className="relative rounded-3xl bg-gradient-to-b from-[#060D1E] to-[#02070E] border border-blue-500/35 p-8 sm:p-14 md:p-16 text-center overflow-hidden shadow-[0_0_60px_rgba(0,102,255,0.18)]">
           {/* Subtle electric blue ambient aura */}
@@ -273,28 +368,41 @@ export default function HomePage() {
 
           {/* Small Top Tag */}
           <span className="inline-block text-xs font-mono uppercase tracking-widest text-sky-400 font-bold mb-4">
-            NEXT STEPS
+            {strings.directCommunication}
           </span>
 
-          {/* Exact Heading */}
+          {/* Heading */}
           <h2 id="closing-headline" className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
-            READY TO BUILD YOUR NEXT BUSINESS SOLUTION?
+            {strings.readyToBuild}
           </h2>
 
-          {/* Exact Supporting Text */}
+          {/* Supporting Text */}
           <p id="closing-subtext" className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Tell us what you need. Let’s define the right next step.
+            {strings.readySubtext}
           </p>
 
-          {/* Button: “Discuss Your Project” */}
-          <button
-            id="btn-closing-discuss-project"
-            onClick={() => navigate('/contact')}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-base font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-[0_0_30px_rgba(0,102,255,0.5)] hover:shadow-[0_0_40px_rgba(56,189,248,0.6)] active:scale-[0.98] cursor-pointer"
-          >
-            <span>Discuss Your Project</span>
-            <ArrowRight className="w-5 h-5" />
-          </button>
+          {/* Strong WhatsApp CTA Button */}
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a
+              id="btn-closing-discuss-whatsapp"
+              href={whatsappGeneralUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-base font-semibold text-white bg-emerald-600 hover:bg-emerald-500 transition-all duration-200 shadow-[0_0_30px_rgba(16,185,129,0.45)] hover:shadow-[0_0_40px_rgba(16,185,129,0.6)] active:scale-[0.98] cursor-pointer"
+            >
+              <MessageCircle className="w-5 h-5" />
+              <span>{strings.discussOnWhatsApp}</span>
+            </a>
+
+            <button
+              id="btn-closing-view-contact"
+              onClick={() => navigate('/contact')}
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-base font-semibold text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/15 hover:border-sky-400/40 backdrop-blur-sm transition-all duration-200 active:scale-[0.98] cursor-pointer"
+            >
+              <span>{strings.viewBothLines}</span>
+              <ArrowRight className={`w-4 h-4 text-slate-400 ${isRTL ? 'rotate-180' : ''}`} />
+            </button>
+          </div>
         </div>
       </section>
     </div>

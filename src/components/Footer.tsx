@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom';
-import { NAV_ITEMS } from '../config/site';
+import { getNavItems, UI_STRINGS } from '../config/translations';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Footer() {
+  const { language } = useLanguage();
+  const navItems = getNavItems(language);
+  const strings = UI_STRINGS[language];
+
   return (
-    <footer id="main-footer" className="border-t border-white/[0.08] bg-[#02070D] relative overflow-hidden">
+    <footer id="main-footer" className="border-t border-white/[0.08] bg-[#02070D] relative overflow-hidden text-left">
       {/* Subtle top ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-px bg-gradient-to-r from-transparent via-blue-500/40 to-transparent" />
 
@@ -16,11 +21,13 @@ export default function Footer() {
                 <img
                   src="/logo.jpg"
                   alt="APEX AI AGENCY Logo"
+                  width="40"
+                  height="40"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col text-left">
                 <span className="text-base font-extrabold tracking-wider text-white group-hover:text-sky-300 transition-colors font-sans leading-tight">
                   APEX
                 </span>
@@ -30,17 +37,17 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
-              AI, digital technology, and modern solutions built around real requirements.
+              {strings.taglineShort}
             </p>
           </div>
 
           {/* Navigation Links */}
           <nav id="footer-nav" className="flex flex-wrap items-center gap-x-6 gap-y-3" aria-label="Footer navigation">
-            {NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                id={`footer-link-${item.name.toLowerCase().replace(/\s+/g, '-')}`}
+                id={`footer-link-${item.path.replace(/\//g, '') || 'home'}`}
                 className="text-sm text-slate-400 hover:text-white transition-colors"
               >
                 {item.name}
@@ -52,7 +59,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p id="footer-copyright">
-            © 2026 APEX AI AGENCY. All rights reserved.
+            {strings.allRightsReserved}
           </p>
         </div>
       </div>

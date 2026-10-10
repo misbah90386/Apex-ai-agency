@@ -8,30 +8,38 @@ import {
   CheckCircle2, 
   Cpu, 
   Layers, 
-  Rocket 
+  Rocket,
+  MessageCircle 
 } from 'lucide-react';
-import { BELIEFS_DATA, ROADMAP_DATA } from '../config/site';
+import { getBeliefsData, getRoadmapData, getGeneralWhatsAppUrl, UI_STRINGS } from '../config/translations';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function MissionVisionPage() {
   const navigate = useNavigate();
+  const { language, isRTL } = useLanguage();
+
+  const beliefs = getBeliefsData(language);
+  const roadmap = getRoadmapData(language);
+  const strings = UI_STRINGS[language];
+  const whatsappUrl = getGeneralWhatsAppUrl(language);
 
   return (
-    <div className="pt-28 pb-20 relative overflow-hidden">
+    <div className="pt-28 pb-20 relative overflow-hidden bg-[#02070D] text-left">
       {/* Background Grid */}
       <div className="absolute inset-0 bg-tech-grid opacity-25 pointer-events-none" />
 
       {/* Hero */}
       <section id="mission-vision-hero" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-16 text-center">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-xs font-mono font-medium text-sky-400 uppercase tracking-widest mb-4">
-          Foundational Direction
+          {strings.missionVisionTag}
         </div>
 
         <h1 id="mission-vision-title" className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-5">
-          Our Mission & Vision
+          {strings.missionVisionTitle}
         </h1>
 
         <p id="mission-vision-subtitle" className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-          Building useful technology today while creating a bigger vision for tomorrow.
+          {strings.missionVisionSubtitle}
         </p>
       </section>
 
@@ -46,24 +54,30 @@ export default function MissionVisionPage() {
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-5">
-                Our Mission
+                {strings.ourMission}
               </h2>
 
               <div className="space-y-4 text-slate-300 text-base leading-relaxed">
                 <p>
-                  Our mission is to create useful, modern, and accessible digital technology that helps businesses solve real challenges.
+                  {language === 'ar'
+                    ? "رسالتنا هي تطوير تقنيات رقمية عملية ومفيدة وحديثة تساعد الشركات على حل تحدياتها اليومية بنجاح."
+                    : "Our mission is to create useful, modern, and accessible digital technology that helps businesses solve real challenges."}
                 </p>
                 <p>
-                  We aim to simplify complex processes, create practical AI solutions, develop intelligent systems, and make advanced technology easier to use.
+                  {language === 'ar'
+                    ? "نسعى لتبسيط العمليات المعقدة، وبناء حلول ذكاء اصطناعي عملية، وتطوير أنظمة ذكية تجعل استخدام التقنيات المتقدمة أكثر سهولة وفاعلية."
+                    : "We aim to simplify complex processes, create practical AI solutions, develop intelligent systems, and make advanced technology easier to use."}
                 </p>
                 <p className="p-4 rounded-xl bg-black/40 border border-white/[0.04] text-sm text-sky-200">
-                  We focus on understanding real requirements rather than building technology simply because it is possible.
+                  {language === 'ar'
+                    ? "نركز على فهم المتطلبات الحقيقية للأعمال بدلاً من بناء تقنيات لمجرد إظهار القدرة التقنية."
+                    : "We focus on understanding real requirements rather than building technology simply because it is possible."}
                 </p>
               </div>
             </div>
 
             <div className="mt-8 pt-4 border-t border-white/[0.04] text-xs font-mono text-slate-500">
-              MISSION FOCUS: PRACTICAL APPLICATION
+              {language === 'ar' ? "التركيز: التطبيق العملي المفيد" : "MISSION FOCUS: PRACTICAL APPLICATION"}
             </div>
           </div>
 
@@ -75,77 +89,64 @@ export default function MissionVisionPage() {
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-5">
-                Our Vision
+                {strings.ourVision}
               </h2>
 
-              <p className="text-slate-300 text-base leading-relaxed mb-6">
-                Our vision is to build APEX into a technology company known for powerful digital systems, intelligent AI solutions, automation platforms, and advanced technology products.
-              </p>
-
-              <div>
-                <span className="text-xs font-mono text-sky-400 uppercase tracking-wider block mb-3">
-                  Over time, our vision includes exploring:
-                </span>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300 font-mono">
-                  <li className="flex items-center gap-2 p-2 rounded bg-white/[0.02]">
-                    <span className="text-blue-400">▹</span> Advanced AI systems
-                  </li>
-                  <li className="flex items-center gap-2 p-2 rounded bg-white/[0.02]">
-                    <span className="text-blue-400">▹</span> Intelligent AI agents
-                  </li>
-                  <li className="flex items-center gap-2 p-2 rounded bg-white/[0.02]">
-                    <span className="text-blue-400">▹</span> Automation platforms
-                  </li>
-                  <li className="flex items-center gap-2 p-2 rounded bg-white/[0.02]">
-                    <span className="text-blue-400">▹</span> Scalable digital systems
-                  </li>
-                  <li className="flex items-center gap-2 p-2 rounded bg-white/[0.02]">
-                    <span className="text-blue-400">▹</span> New technology products
-                  </li>
-                  <li className="flex items-center gap-2 p-2 rounded bg-white/[0.02]">
-                    <span className="text-blue-400">▹</span> Research and development
-                  </li>
-                </ul>
+              <div className="space-y-4 text-slate-300 text-base leading-relaxed">
+                <p>
+                  {language === 'ar'
+                    ? "رؤيتنا هي أن نكون الشريك التقني الموثوق للشركات الطامحة لبناء بنية رقمية حديثة تدمج بسلاسة بين المواقع والذكاء الاصطناعي والأتمتة."
+                    : "Our vision is to be the trusted technology partner for forward-looking businesses, establishing modern digital foundations that seamlessly integrate websites, AI, and automation."}
+                </p>
+                <p>
+                  {language === 'ar'
+                    ? "نطمح لتطوير منظومة تقنية متكاملة ترفع كفاءة الأعمال، وتحرر طاقات فرق العمل من المهام المكررة للتركيز على النمو والإبداع."
+                    : "We aspire to develop integrated technological architectures that maximize business efficiency, freeing team capacity from repetitive operations to focus on strategic growth."}
+                </p>
+                <p className="p-4 rounded-xl bg-blue-950/30 border border-blue-500/20 text-sm text-sky-200">
+                  {language === 'ar'
+                    ? "الجمع بين البساطة في الاستخدام والعمق في المعمارية البرمجية."
+                    : "Combining effortless simplicity of use with rigorous architectural depth."}
+                </p>
               </div>
             </div>
 
             <div className="mt-8 pt-4 border-t border-white/[0.04] text-xs font-mono text-slate-500">
-              VISION FOCUS: LONG-TERM CAPABILITY EXPLORATION
+              {language === 'ar' ? "الرؤية: بنية رقمية مستدامة" : "VISION FOCUS: SCALABLE ARCHITECTURES"}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Our Beliefs Section */}
-      <section id="mission-beliefs" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2">
-            Core Tenets
+      {/* Philosophy / Beliefs */}
+      <section id="mission-vision-beliefs" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2 font-bold">
+            {strings.ourBeliefs}
           </span>
-          <h2 id="beliefs-heading" className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
-            Our Beliefs
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
+            {strings.ourBeliefs}
           </h2>
           <p className="text-slate-400 text-base">
-            The foundational standards that guide our architectural choices and client engagements.
+            {strings.ourBeliefsSub}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {BELIEFS_DATA.map((belief, idx) => (
-            <div
+          {beliefs.map((b, idx) => (
+            <div 
               key={idx}
-              id={`belief-card-${idx}`}
-              className="p-7 rounded-xl bg-[#090D16] border border-white/[0.08] hover:border-blue-500/30 transition-all group flex flex-col justify-between"
+              className="p-6 rounded-2xl bg-[#070D1A] border border-white/[0.08] hover:border-blue-500/30 transition-all flex flex-col justify-between"
             >
               <div>
-                <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-sky-400 flex items-center justify-center font-mono text-xs font-bold mb-4">
+                <span className="text-xs font-mono text-sky-400 font-bold mb-3 block">
                   0{idx + 1}
-                </div>
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-sky-300 transition-colors">
-                  {belief.title}
+                </span>
+                <h3 className="text-lg font-bold text-white mb-2">
+                  {b.title}
                 </h3>
                 <p className="text-sm text-slate-400 leading-relaxed">
-                  {belief.description}
+                  {b.description}
                 </p>
               </div>
             </div>
@@ -153,118 +154,68 @@ export default function MissionVisionPage() {
         </div>
       </section>
 
-      {/* APEX Roadmap Visual Timeline */}
-      <section id="apex-roadmap" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+      {/* Roadmap */}
+      <section id="mission-vision-roadmap" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-xs font-mono font-medium text-sky-400 uppercase tracking-widest mb-3">
-            Our Long-Term Direction
-          </div>
-          <h2 id="roadmap-heading" className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
-            APEX ROADMAP
+          <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2 font-bold">
+            {strings.roadmapTitle}
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
+            {strings.roadmapTitle}
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto">
-            A transparent architectural horizon distinguishing active services from upcoming research and future ambitions.
+          <p className="text-slate-400 text-base">
+            {strings.roadmapSub}
           </p>
         </div>
 
-        {/* 3 Phases Columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 relative">
-          {ROADMAP_DATA.map((col, idx) => {
-            const isToday = col.phase === 'TODAY';
-            const isNext = col.phase === 'NEXT';
-            return (
-              <div
-                key={col.phase}
-                id={`roadmap-column-${col.phase.toLowerCase()}`}
-                className={`p-7 rounded-2xl border flex flex-col justify-between ${
-                  isToday
-                    ? 'bg-[#0A1020] border-blue-500/50 shadow-[0_0_30px_rgba(0,102,255,0.15)]'
-                    : 'bg-[#070B14] border-white/[0.08]'
-                }`}
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span
-                      className={`px-3 py-1 rounded text-xs font-mono font-bold tracking-wider uppercase ${
-                        isToday
-                          ? 'bg-blue-600 text-white'
-                          : isNext
-                          ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30'
-                          : 'bg-white/5 text-slate-400 border border-white/10'
-                      }`}
-                    >
-                      {col.phase}
-                    </span>
-                    <span className="text-[11px] font-mono text-slate-500">
-                      PHASE 0{idx + 1}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-white mb-1">
-                    {col.title}
-                  </h3>
-
-                  <p className="text-xs text-slate-400 mb-6">
-                    {col.subtitle}
-                  </p>
-
-                  <ul className="space-y-2.5">
-                    {col.items.map((item, itemIdx) => (
-                      <li
-                        key={itemIdx}
-                        className={`p-3 rounded-lg text-sm flex items-center gap-2.5 ${
-                          isToday
-                            ? 'bg-blue-950/30 border border-blue-500/20 text-slate-200'
-                            : 'bg-white/[0.02] border border-white/[0.04] text-slate-400'
-                        }`}
-                      >
-                        <span
-                          className={`w-1.5 h-1.5 rounded-full ${
-                            isToday ? 'bg-sky-400' : 'bg-slate-600'
-                          }`}
-                        />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {roadmap.map((phase) => (
+            <div 
+              key={phase.phase}
+              className="p-6 sm:p-8 rounded-2xl bg-[#070D1A] border border-white/[0.08] hover:border-blue-500/30 transition-all flex flex-col justify-between"
+            >
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-blue-500/15 border border-blue-500/30 text-xs font-mono font-bold text-sky-400 mb-4">
+                  {phase.phase}
                 </div>
-
-                <div className="mt-8 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-slate-500">
-                  {isToday
-                    ? 'STATUS: ACTIVE & DELIVERABLE'
-                    : isNext
-                    ? 'STATUS: PLANNED ARCHITECTURE'
-                    : 'STATUS: LONG-TERM RESEARCH DIRECTION'}
-                </div>
+                <h3 className="text-xl font-bold text-white mb-1">
+                  {phase.title}
+                </h3>
+                <p className="text-xs text-slate-400 mb-6">
+                  {phase.subtitle}
+                </p>
+                <ul className="space-y-2.5">
+                  {phase.items.map((item, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-xs sm:text-sm text-slate-300">
+                      <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Final Statement Card */}
-      <section id="mission-final-statement" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="p-8 sm:p-14 rounded-2xl bg-gradient-to-b from-[#0B1224] to-[#070B14] border border-blue-500/30 relative shadow-[0_0_50px_rgba(0,102,255,0.15)]">
-          <div className="w-12 h-12 rounded-xl bg-blue-600/20 border border-blue-500/30 text-sky-400 flex items-center justify-center mx-auto mb-6">
-            <Rocket className="w-6 h-6" />
-          </div>
-
-          <h2 id="final-mission-statement" className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-6">
-            Think Bigger. Build Smarter. Keep Moving Forward.
+      {/* CTA */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+        <div className="rounded-2xl bg-gradient-to-b from-[#060D1E] to-[#02070E] border border-blue-500/35 p-8 sm:p-12">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-4">
+            {strings.readyToBuild}
           </h2>
-
-          <p className="text-slate-300 text-sm sm:text-base max-w-xl mx-auto mb-8">
-            Every breakthrough begins with clear specifications and deliberate execution. Let's discuss your next milestone.
+          <p className="text-sm sm:text-base text-slate-300 mb-8 max-w-xl mx-auto">
+            {strings.readySubtext}
           </p>
-
-          <button
-            id="btn-mission-discuss"
-            onClick={() => navigate('/contact')}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-base font-semibold text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 shadow-[0_0_25px_rgba(0,102,255,0.4)] cursor-pointer"
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-base font-semibold text-white bg-emerald-600 hover:bg-emerald-500 transition-all shadow-[0_0_25px_rgba(16,185,129,0.45)] cursor-pointer"
           >
-            <span>Discuss Your Project</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+            <MessageCircle className="w-5 h-5" />
+            <span>{strings.discussOnWhatsApp}</span>
+          </a>
         </div>
       </section>
     </div>

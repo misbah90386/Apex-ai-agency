@@ -1,3 +1,5 @@
+export type Language = 'en' | 'ar';
+
 export interface NavItem {
   name: string;
   path: string;
@@ -9,12 +11,45 @@ export interface ServiceItem {
   shortDescription: string;
   fullDescription: string;
   iconName: string;
+  whatWeBuild: string;
   whatItHelps: string;
   practicalExample: string;
+  whatItIncludes: string[];
+  practicalUseCase: string;
+  whatWeNeedToGetStarted: string[];
+  technicalRequirementsNote?: string;
   scopeInclusions: string[];
   nextStep: string;
+  whatsappUrl?: string;
   capabilities: string[];
   features: string[];
+}
+
+export type SolutionOptionId = 'website' | 'enquiries' | 'automate' | 'help';
+
+export interface SolutionOption {
+  id: SolutionOptionId;
+  label: string;
+  iconName: string;
+  tagline: string;
+  recommendedServiceId: string;
+  recommendedServiceTitle: string;
+  practicalExplanation: string;
+  keyHighlights: string[];
+  pairedService?: {
+    id: string;
+    title: string;
+    reason: string;
+  };
+  whatsappPrefill: string;
+}
+
+export interface BriefOptions {
+  businessType: string;
+  serviceNeeded: string;
+  projectNature: 'New Project' | 'Upgrade Existing';
+  requirements: string;
+  selectedLine: '966582578793' | '966534182945';
 }
 
 export interface DemoProjectItem {
@@ -24,6 +59,7 @@ export interface DemoProjectItem {
   description: string;
   demoUrl: string;
   previewType: 'real-estate' | 'bakery' | 'restaurant';
+  whatsappUrl?: string;
 }
 
 export interface ProcessStep {
